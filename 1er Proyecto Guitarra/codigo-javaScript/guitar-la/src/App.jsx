@@ -8,12 +8,15 @@ import { db } from './data/db'
 function App() {
  
 const [data,setData]=useState(db);
-
+const [cart,setCart]=useState([]);
 
 
   return (
     <>
-    <Header></Header>
+    <Header
+    cart={cart}
+    setCart={setCart}
+    ></Header>
     <main className="container-xl mt-5">
         <h2 className="text-center">Nuestra Colección</h2>
 
@@ -21,13 +24,14 @@ const [data,setData]=useState(db);
             {data.map((guitar)=>(
                 <Guitar
                 key={guitar.id}
-                guitar={guitar}></Guitar>
+                guitar={guitar}
+                setCart={setCart}
+                cart={cart}></Guitar>
             )
             )}
             
         </div>
     </main>
-
 
     <footer className="bg-dark mt-5 py-5">
         <div className="container-xl">
