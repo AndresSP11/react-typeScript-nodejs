@@ -10,12 +10,45 @@ function App() {
 const [data,setData]=useState(db);
 const [cart,setCart]=useState([]);
 
+/* Estamos teniendo en cuenta que aqui pasamos la foto */
+function addToCart(item){
+
+    const buscadorIndexado=cart.findIndex((variable)=>variable.id==item.id);
+
+    if(buscadorIndexado>=0){
+        /* De esta forma se obtiene la parte de quantity en el carro de compras */
+        const carroPremisa=[...cart];
+        carroPremisa[buscadorIndexado].quantity++;
+        /* Aqui almacenamos a todo el arreglo con el valor */
+        setCart(carroPremisa);
+    }else{
+        /* Aqui estamos creando un atributo a la parte del Item */
+        item.quantity=1;
+        setCart(prevCart=>[...prevCart,item]);
+    }
+}
+
+function removeFromCart(id){
+
+    setCart((prevCart=>prevCart.filter((guitarra)=>guitarra.id!==id)))
+}
+
+function decreaseQuantity(id){
+    const buscandoElemento=cart.findIndex((elemento)=>elemento.id==id);
+    const arregloNuevo=[...cart];
+    arregloNuevo[buscandoElemento].quantity--;
+    setCart(arregloNuevo);
+
+}
+
 
   return (
     <>
     <Header
     cart={cart}
     setCart={setCart}
+    decreaseQuantity={decreaseQuantity}
+    removeFromCart={removeFromCart}
     ></Header>
     <main className="container-xl mt-5">
         <h2 className="text-center">Nuestra Colección</h2>
@@ -26,7 +59,10 @@ const [cart,setCart]=useState([]);
                 key={guitar.id}
                 guitar={guitar}
                 setCart={setCart}
-                cart={cart}></Guitar>
+                cart={cart}
+                addToCart={addToCart}
+                ></Guitar>
+                
             )
             )}
             
