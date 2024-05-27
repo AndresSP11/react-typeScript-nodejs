@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 
-const Header = ({cart,decreaseQuantity,removeFromCart}) => {
+const Header = ({cart,decreaseQuantity,removeFromCart,increaseQuantity,removeCart}) => {
     
     const isEmpty=useMemo(()=>cart.length==0,[cart]);
     const cartTotal=useMemo(()=>cart.reduce((total,elemento)=>elemento.price*elemento.quantity+total,0),[cart]);
@@ -71,7 +71,7 @@ const Header = ({cart,decreaseQuantity,removeFromCart}) => {
                                                             <button
                                                                 className="btn btn-danger"
                                                                 type="button"
-                                                                onClick={() => removeFromCart(guitar.id)}
+                                                                onClick={() => clearCart(guitar.id)}
                                                             >
                                                                 X
                                                             </button>
@@ -81,7 +81,9 @@ const Header = ({cart,decreaseQuantity,removeFromCart}) => {
                                 </tbody>
                             </table>
                             <p className="text-end">Total pagar: <span className="fw-bold">${cartTotal}</span></p>
-                            <button className="btn btn-dark w-100 mt-3 p-2">Vaciar Carrito</button>
+                            <button className="btn btn-dark w-100 mt-3 p-2"
+                            onClick={()=>removeCart()}
+                            >Vaciar Carrito</button>
                             </>        
 
 )                       
