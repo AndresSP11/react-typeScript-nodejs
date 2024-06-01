@@ -1,17 +1,29 @@
+import { useEffect,useMemo,useState } from "react";
+import { db } from "../data/db";
 
-import { useState } from 'react'
-import './App.css'
-import Header from './components/Header'
-import Guitar from './components/Guitar'
-import { db } from './data/db'
 
-function App() {
- 
+
+
+export const useCart=()=>{
+
+    const initialCart=()=>{
+        const localStorageCart=localStorage.getItem('cart');
+        return localStorageCart ? JSON.parse(localStorageCart) : [];
+    }
+
 const [data,setData]=useState(db);
-const [cart,setCart]=useState([]);
+const [cart,setCart]=useState(initialCart);
 
 const MAX_ITEMS=5;
 const MIN_ITEMS=1;
+
+/* En base a la parte de los elementos, el useEffect se actualizará si es que cambiar
+intermanete algo de  */
+
+useEffect(()=>{
+    localStorage.setItem('cart',JSON.stringify(cart));
+},[cart]);
+
 
 /* Estamos teniendo en cuenta que aqui pasamos la foto */
 function addToCart(item){
@@ -64,48 +76,27 @@ function increaseQuantity(id){
     setCart(updateCart)
 }
 
+const isEmpty=useMemo(()=>cart.length==0,[cart]);
+const cartTotal=useMemo(()=>cart.reduce((total,elemento)=>elemento.price*elemento.quantity+total,0),[cart]);
+
+
+
 function clearCart(){
-
     setCart([]);
-
-
-}
-  return (
-    <>
-    <Header
-    cart={cart}
-    setCart={setCart}
-    decreaseQuantity={decreaseQuantity}
-    removeFromCart={removeFromCart}
-    increaseQuantity={increaseQuantity}
-    clearCart={clearCart}
-    ></Header>
-    <main className="container-xl mt-5">
-        <h2 className="text-center">Nuestra Colección</h2>
-
-        <div className="row mt-5">
-            {data.map((guitar)=>(
-                <Guitar
-                key={guitar.id}
-                guitar={guitar}
-                setCart={setCart}
-                cart={cart}
-                addToCart={addToCart}
-                ></Guitar>
-                
-            )
-            )}
-            
-        </div>
-    </main>
-
-    <footer className="bg-dark mt-5 py-5">
-        <div className="container-xl">
-            <p className="text-white text-center fs-4 mt-4 m-md-0">GuitarLA - Todos los derechos Reservados</p>
-        </div>
-    </footer>
-    </>
-  )
 }
 
-export default App
+    return{
+        clearCart,
+        increaseQuantity,
+        decreaseQuantity,
+        removeFromCart,
+        addToCart,
+        cart,
+        data,
+        setCart,
+        initialCart,
+        isEmpty,
+        cartTotal
+
+    }
+}
