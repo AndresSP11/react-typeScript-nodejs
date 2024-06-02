@@ -1,8 +1,13 @@
-import React from 'react'
+import type {Guitar} from '../types'
 
-const Guitar = ({guitar,setCart,cart,addToCart}) => {
+type GuitarProps={
+    guitar : Guitar,
+    addToCart:(item:Guitar)=>void
+}
+
+const Guitar = ({guitar,addToCart}:GuitarProps) => {
   
-const {name,price,description,id,image}=guitar;
+const {name,price,description,image}=guitar;
 
     /* En este caso handleSubmit */
     

@@ -1,24 +1,18 @@
-
-import { useEffect, useState } from 'react'
 import './App.css'
 import Header from './components/Header'
 import Guitar from './components/Guitar'
-import { db } from './data/db'
 import { useCart } from './hooks/useCart'
 
 
 
 function App() {
  
-    const {clearCart,increaseQuantity,decreaseQuantity,removeFromCart,addToCart,cart,data,setCart,isEmpty,cartTotal}=useCart();
-    
-   
+    const {clearCart,increaseQuantity,decreaseQuantity,removeFromCart,addToCart,cart,data,isEmpty,cartTotal}=useCart();
 
   return (
     <>
     <Header
     cart={cart}
-    setCart={setCart}
     decreaseQuantity={decreaseQuantity}
     removeFromCart={removeFromCart}
     increaseQuantity={increaseQuantity}
@@ -34,8 +28,6 @@ function App() {
                 <Guitar
                 key={guitar.id}
                 guitar={guitar}
-                setCart={setCart}
-                cart={cart}
                 addToCart={addToCart}
                 ></Guitar>
                 

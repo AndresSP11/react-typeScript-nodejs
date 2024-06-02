@@ -1,17 +1,14 @@
 import { useEffect,useMemo,useState } from "react";
 import { db } from "../data/db";
-
-
-
+import { CartItem, Guitar} from "../types";
 
 export const useCart=()=>{
-
-    const initialCart=()=>{
+    const initialCart=():CartItem[]=>{
         const localStorageCart=localStorage.getItem('cart');
         return localStorageCart ? JSON.parse(localStorageCart) : [];
-    }
+}
 
-const [data,setData]=useState(db);
+const [data]=useState(db);
 const [cart,setCart]=useState(initialCart);
 
 const MAX_ITEMS=5;
@@ -24,10 +21,8 @@ useEffect(()=>{
     localStorage.setItem('cart',JSON.stringify(cart));
 },[cart]);
 
-
 /* Estamos teniendo en cuenta que aqui pasamos la foto */
-function addToCart(item){
-
+function addToCart(item:Guitar){
     const buscadorIndexado=cart.findIndex((variable)=>variable.id==item.id);
 
     if(buscadorIndexado>=0){
@@ -38,17 +33,16 @@ function addToCart(item){
         setCart(carroPremisa);
     }else{
         /* Aqui estamos creando un atributo a la parte del Item */
-        item.quantity=1;
-        setCart(prevCart=>[...prevCart,item]);
+        const newItem : CartItem={...item,quantity:1};
+        setCart(prevCart=>[...prevCart,newItem]);
     }
 }
 
-function removeFromCart(id){
-
+function removeFromCart(id : Guitar['id']){
     setCart((prevCart=>prevCart.filter((guitarra)=>guitarra.id!==id)))
 }
 
-function decreaseQuantity(id){
+function decreaseQuantity(id: Guitar['id']){
     const updateCart=cart.map((guitar)=>{
         if(guitar.id==id && MIN_ITEMS<guitar.quantity){
             return{
@@ -62,7 +56,7 @@ function decreaseQuantity(id){
 
 }
 
-function increaseQuantity(id){
+function increaseQuantity(id : Guitar['id']){
 
     const updateCart=cart.map((guitar)=>{
         if(guitar.id==id && guitar.quantity<MAX_ITEMS){
@@ -78,8 +72,6 @@ function increaseQuantity(id){
 
 const isEmpty=useMemo(()=>cart.length==0,[cart]);
 const cartTotal=useMemo(()=>cart.reduce((total,elemento)=>elemento.price*elemento.quantity+total,0),[cart]);
-
-
 
 function clearCart(){
     setCart([]);
