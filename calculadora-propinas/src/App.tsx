@@ -1,11 +1,53 @@
+import { useState } from 'react'
+import { menuItems } from './data/db'
+import './index.css'
+import MenuItem from './components/MenuItem';
+import useOrder from './hooks/useOrder';
+import OrderContents from './components/OrderContents';
+import OrderTotals from './components/OrderTotals';
 
 function App() {
+  /* Esta paret extraemos los datos */
+  const {addItem,order,removeItem}=useOrder();
+
+  const [items,setState]=useState(menuItems);
+
+  console.log(items);
+
   return (
     <>
-      <h1>
-        Hola
-      </h1>
-      <p>Hola Mundo</p>
+      <header className=' bg-teal-400 py-5'>
+        <h1 className=' text-center text-4xl font-black'>Calculadora de Propinas y Consumo</h1>
+      </header>
+
+      <main className=' max-w-7xl mx-auto py-20 grid md:grid-cols-2 '>
+        <div className='p-5'>
+          <h2 className=' text-4xl font-black'>Menú</h2>
+          <div>
+            {items.map((item)=>(
+              <MenuItem
+              key={item.id}
+              item={item}
+              addItem={addItem}
+              ></MenuItem>
+            ))}
+          </div>
+
+        </div>
+
+        <div className=' border border-dashed p-5 rounded-lg space-y-10'>
+          <OrderContents
+          order={order}
+          removeItem={removeItem}
+          ></OrderContents>
+          <OrderTotals></OrderTotals>
+        </div>
+
+        
+        
+      </main>
+
+
     </>
   )
 }
