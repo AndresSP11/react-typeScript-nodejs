@@ -5,15 +5,14 @@ import MenuItem from './components/MenuItem';
 import useOrder from './hooks/useOrder';
 import OrderContents from './components/OrderContents';
 import OrderTotals from './components/OrderTotals';
+import TipPercentageForm from './components/TipPercentageForm';
 
 function App() {
   /* Esta paret extraemos los datos */
-  const {addItem,order,removeItem}=useOrder();
+  const {addItem,order,removeItem,tip,setTip,placeHolder}=useOrder();
 
-  const [items,setState]=useState(menuItems);
-
-  console.log(items);
-
+  const [items]=useState(menuItems);
+ 
   return (
     <>
       <header className=' bg-teal-400 py-5'>
@@ -36,11 +35,26 @@ function App() {
         </div>
 
         <div className=' border border-dashed p-5 rounded-lg space-y-10'>
-          <OrderContents
+          {
+            order.length ? (
+              <>
+              <OrderContents
           order={order}
           removeItem={removeItem}
           ></OrderContents>
-          <OrderTotals></OrderTotals>
+          <TipPercentageForm
+          tip={tip}
+          setTip={setTip}
+          >
+          </TipPercentageForm>
+          <OrderTotals
+          tip={tip}
+          order={order}
+          placeHolder={placeHolder}
+          ></OrderTotals>
+          </>
+            ) : (<p className=' text-center font-black uppercase'>Orden Vacia</p>)
+          }
         </div>
 
         

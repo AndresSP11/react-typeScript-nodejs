@@ -71,6 +71,7 @@ function increaseQuantity(id : Guitar['id']){
 }
 
 const isEmpty=useMemo(()=>cart.length==0,[cart]);
+
 const cartTotal=useMemo(()=>cart.reduce((total,elemento)=>elemento.price*elemento.quantity+total,0),[cart]);
 
 function clearCart(){

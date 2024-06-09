@@ -3,9 +3,12 @@ import { MenuItem, OrderItem } from "../types";
 
 export default function useOrder(){
     /* En esta oportunidad se crea el Order, tener en cuenta que se tipa por parte de OrderItem, pero teniedo en cuenta que tiene quantity */
-    
+    /* En esta  */
     const [order,setOrder]=useState<OrderItem[]>([]);
 
+    /* Aqui se asigna el valor del tip */
+
+    const [tip,setTip]=useState(0);
     /* Esto es el addItem, recuerda que es un arrowFunction() */
     const addItem=(item:MenuItem)=>{
 
@@ -30,10 +33,18 @@ export default function useOrder(){
         setOrder(nuevoArreglo);
     }
 
+    const placeHolder=()=>{
+        setOrder([]);
+        setTip(0);
+    }
+
 
     return{
         addItem,
         order,
-        removeItem
+        tip,
+        setTip,
+        removeItem,
+        placeHolder
     }
 }
