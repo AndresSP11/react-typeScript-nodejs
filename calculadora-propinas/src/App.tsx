@@ -10,9 +10,7 @@ import TipPercentageForm from './components/TipPercentageForm';
 function App() {
   /* Esta paret extraemos los datos */
   const {addItem,order,removeItem,tip,setTip,placeHolder}=useOrder();
-
   const [items]=useState(menuItems);
- 
   return (
     <>
       <header className=' bg-teal-400 py-5'>
@@ -20,6 +18,7 @@ function App() {
       </header>
 
       <main className=' max-w-7xl mx-auto py-20 grid md:grid-cols-2 '>
+        {/* Definición de la parte , el main es el contenedor padre */}
         <div className='p-5'>
           <h2 className=' text-4xl font-black'>Menú</h2>
           <div>
@@ -38,32 +37,29 @@ function App() {
           {
             order.length ? (
               <>
-              <OrderContents
-          order={order}
-          removeItem={removeItem}
-          ></OrderContents>
-          <TipPercentageForm
-          tip={tip}
-          setTip={setTip}
-          >
-          </TipPercentageForm>
-          <OrderTotals
-          tip={tip}
-          order={order}
-          placeHolder={placeHolder}
-          ></OrderTotals>
-          </>
+              {/* Son 3 elementos aqui vemos esta vaina */}
+                <OrderContents
+                order={order}
+                removeItem={removeItem}
+                ></OrderContents>
+
+                <TipPercentageForm
+                tip={tip}
+                setTip={setTip}
+                >
+                </TipPercentageForm>
+
+                <OrderTotals
+                tip={tip}
+                order={order}
+                placeHolder={placeHolder}
+                ></OrderTotals>
+            </>
             ) : (<p className=' text-center font-black uppercase'>Orden Vacia</p>)
           }
         </div>
-
-        
-        
       </main>
-
-
     </>
   )
 }
-
 export default App

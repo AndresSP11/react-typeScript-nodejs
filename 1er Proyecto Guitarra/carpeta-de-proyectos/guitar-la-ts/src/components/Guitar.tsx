@@ -10,9 +10,6 @@ const Guitar = ({guitar,addToCart}:GuitarProps) => {
 const {name,price,description,image}=guitar;
 
     /* En este caso handleSubmit */
-    
-
-
 return (
     <>
         <div className="col-md-6 col-lg-4 my-4 row align-items-center">
@@ -28,10 +25,9 @@ return (
                         className="btn btn-dark w-100"
                         onClick={()=>addToCart(guitar)}
                     >Agregar al Carrito</button>
-                </div>
+                </div>A
         </div>
     </>
   )
 }
-
 export default Guitar

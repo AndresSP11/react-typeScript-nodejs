@@ -7,7 +7,7 @@ type HeaderProps={
     increaseQuantity: (id:Guitar['id'])=>void
     clearCart:()=>void
     isEmpty: boolean
-    cartTotal:number
+    cartTotal: number
 }
 
 const Header = ({

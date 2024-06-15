@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { categories } from '../data/categories'
 
 const Form = () => {
-
+    /* Recordar que tenemos en cuenta quqe la actividad es un objeto */
     const [activity,setActivity]=useState({
         category:1,
         name:'',
@@ -14,17 +14,18 @@ const Form = () => {
             ...activity,
             [e.target.id]:e.target.value
     })
-
-        console.log(" Haciendo cambio ");
     }
+    console.log(activity);
   return (
     <form className=' space-y-5 bg-white shadow p-10 rounded-lg'>
         <div className=' grid grid-cols-1 gap-3'>
+            
             <label htmlFor="category" className=' font-bold'>Categoría: </label>
             <select className=' border border-slate-300 p-2 rounded-lg w-full bg-white'
             id='category'
             value={activity.category}
-            onChange={handleChange}>
+            onChange={handleChange}
+            >
                 {
                     categories.map((category)=>(
                         <option 

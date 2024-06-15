@@ -2,11 +2,9 @@
 .fw-black {
   font-weight: 900;
 }
-
 .btn-dark {
   text-transform: uppercase;
 }
-
 .carrito {
   background-color: transparent;
   border: none;
@@ -15,7 +13,6 @@
   z-index: 100;
   
 }
-
 .carrito #carrito {
   display: none;
   position: absolute;
