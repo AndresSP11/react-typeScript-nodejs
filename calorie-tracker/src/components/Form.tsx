@@ -9,7 +9,7 @@ const Form = () => {
         calories:0
     });
 
-    const handleChange=(e)=>{
+    const handleChange=(e:React.ChangeEvent<HTMLInputElement>)=>{
         setActivity({
             ...activity,
             [e.target.id]:e.target.value
